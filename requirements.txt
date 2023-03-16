@@ -1,0 +1,7 @@
+scikit-learn==0.22.2
+sklearn-crfsuite
+pandas
+matplotlib
+tensorflow
+eli5
+tensorflow-addons

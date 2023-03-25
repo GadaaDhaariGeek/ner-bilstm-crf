@@ -2,9 +2,9 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.metrics import classification_report
-
 from tensorflow.keras.utils import pad_sequences, to_categorical
-from preprocessing.crf_preprocessor import sent2labels
+
+# from preprocessing.crf_preprocessor import sent2labels
 from utils.utils import SentenceGetter
 
 class LSTMSoftmaxPreprocessor:
@@ -24,7 +24,7 @@ class LSTMSoftmaxPreprocessor:
         while i < y_pred.shape[0]:
             final_preds.append(list(y_pred[i][:len(X[i])]))
             i += 1
-        y_true = [sent2labels(s) for s in sentences]
+        y_true = [self.sent2labels(s) for s in sentences]
 
         # changing to MLB for calculating metrics report
         mlb = MultiLabelBinarizer()
@@ -47,7 +47,6 @@ class LSTMSoftmaxPreprocessor:
         for w, ap, pred in zip(X[i], actual_p, p[0]):
             print("{:15} ({:20}): {}".format(words[w], tags[ap], tags[pred]))
 
-
     def get_sentences(self, df):
         return SentenceGetter(df).sentences
 
@@ -65,6 +64,9 @@ class LSTMSoftmaxPreprocessor:
         max_length = len(max(sentences, key=len))
         return max_length
     
+    def sent2labels(self, sent):
+        return [label for _, label in sent]
+
     def get_indices(self, words, tags):
         word2idx = {w: i for i, w in enumerate(words)}
         idx2word = {i: w for w, i in word2idx.items()}

@@ -95,6 +95,3 @@ class CRFPreprocessor:
         report = classification_report(y_true=yv, y_pred=yp, output_dict=True, target_names=mlb.classes_)
         report_df = pd.DataFrame(report).transpose()
         return report_df
-    
-    def save_model(self, model):
-        joblib.dump(model, os.path.join(C.OUTPUT_DIR, "crf_model_" + str(self.time_prefix)) + ".pkl")

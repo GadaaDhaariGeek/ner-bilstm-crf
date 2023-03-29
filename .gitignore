@@ -3,3 +3,5 @@
 **/.vscode
 **/multiconer2023
 **/outputs
+src/data/
+src/models/

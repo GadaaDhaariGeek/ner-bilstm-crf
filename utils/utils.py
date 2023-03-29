@@ -16,7 +16,7 @@ class SentenceGetter(object):
         self.n_sent = 1
         self.data = data
         self.empty = False
-        agg_func = lambda s: [(w, t) for w, t in zip(s["token"].values.tolist(),
+        agg_func = lambda s: [[w, t] for w, t in zip(s["token"].values.tolist(),
                                                            s["tag"].values.tolist())]
         self.grouped = self.data.groupby("sentence_id").apply(agg_func)
         self.sentences = [s for s in self.grouped]
